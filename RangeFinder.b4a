@@ -1,0 +1,151 @@
+﻿Build1=Default,b4a.DiscGolfRangeFinder
+File1=Layout.bal
+FileGroup1=Default Group
+Group=Default Group
+Library1=camera
+Library2=core
+Library3=javaobject
+Library4=phone
+Library5=runtimepermissions
+Library6=xui
+Library7=reflection
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="33"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~AddPermission(android.permission.CAMERA)~\n~
+Module1=CameraExClass
+Module2=Starter
+NumberOfFiles=1
+NumberOfLibraries=7
+NumberOfModules=2
+Version=12.8
+@EndOfDesignText@
+#Region  Project Attributes 
+    #ApplicationLabel: RangeFinder
+    #VersionCode: 1
+    #VersionName: 
+    'SupportedOrientations possible values: unspecified, landscape or portrait.
+    #SupportedOrientations: unspecified
+    #CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+    #FullScreen: False
+    #IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+	Private phoneSensors As PhoneSensors
+	Private frontCamera As Boolean = False
+	Private startPreviewTimer As Timer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Dim m_angle As Float
+	Private Label2 As Label
+	Private Label4 As Label
+	Private m_ctlDistance As EditText
+	Private m_ctlKUp As EditText
+	Private m_ctlKDown As EditText
+	Private cam As Camera
+	Private Panel1 As Panel ' Use Panel instead of SurfaceView
+	Private camEx As CameraExClass
+End Sub
+
+Private Sub InitializeCamera
+	Starter.rp.CheckAndRequest(Starter.rp.PERMISSION_CAMERA)
+	Wait For Activity_PermissionResult (Permission As String, Result As Boolean)
+	If Result Then
+		camEx.Initialize(Panel1, frontCamera, Me, "Camera1")
+		frontCamera = camEx.Front
+	Else
+		ToastMessageShow("No permission!!!", True)
+	End If
+End Sub
+
+Sub Camera1_Ready(Success As Boolean)
+	If Success Then
+		camEx.SetJpegQuality(90)
+		camEx.SetContinuousAutoFocus
+		camEx.CommitParameters
+		camEx.StartPreview
+		Log(camEx.GetPreviewSize)
+	Else
+		ToastMessageShow("Cannot open camera.", True)
+	End If
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout") ' Load the layout that includes the Panel
+	phoneSensors.Initialize(phoneSensors.TYPE_ACCELEROMETER)
+	m_ctlKUp.Text = 2.5
+	m_ctlKDown.Text = 0.5
+End Sub
+
+Sub Activity_Resume
+	InitializeCamera
+	phoneSensors.StartListening("phoneSensors")
+	Log("Started listening to phone sensors.")
+End Sub
+
+Sub Activity_Pause(UserClosed As Boolean)
+	phoneSensors.StopListening()
+	Log("Stopped listening to phone sensors.")
+	Try
+		Log("Stopping camera preview...")
+		cam.StopPreview ' Stop the camera preview when the activity is paused
+		cam.Release ' Release the camera when the activity is paused
+		Log("Camera released.")
+	Catch
+		Log("Error during camera release: " & LastException)
+	End Try
+End Sub
+
+Sub phoneSensors_SensorChanged (Values() As Float)
+	' Values(0), Values(1), Values(2) correspond to x, y, z axis respectively
+	Dim x As Float = Values(0)
+	Dim y As Float = Values(1)
+	Dim z As Float = Values(2)
+
+	' Calculate the tilt angle
+	m_angle = ATan2(y, Sqrt(x * x + z * z)) * (180 / cPI)
+	Log("Tilt Angle: " & m_angle & " degrees")
+End Sub
+
+Sub Panel1_Touch (Action As Int, X As Float, Y As Float)
+	Label4.Text = "Angle: " & m_angle
+	displayEffectiveDistance
+End Sub
+
+Sub displayEffectiveDistance()
+	Dim k_up As Float
+	Dim k_down As Float
+	Dim eff_distance As Float
+	Dim distance As Float
+	Dim angle_rad As Float = m_angle * (cPI / 180.0)
+
+	If (m_ctlDistance.Text.Length < 1) Then Return
+	distance = m_ctlDistance.Text
+
+	' Convert distance to a float
+	distance = m_ctlDistance.Text.Trim ' Ensure there are no extra spaces
+
+	If IsNumber(distance) Then
+		distance = distance ' Text is already a number in string format
+	Else
+		Log("Invalid distance value")
+		Return ' Exit the sub if the distance is not a valid number
+	End If
+
+	k_up = m_ctlKUp.Text
+	k_down = m_ctlKDown.Text
+
+	If (m_angle >= 0.0) Then
+		eff_distance = distance * (Cos(angle_rad) + k_up * Sin(angle_rad))
+	Else
+		eff_distance = distance * (Cos(angle_rad) + k_down * Sin(angle_rad))
+	End If
+
+	Label2.Text = "Effective Distance: " & NumberFormat(eff_distance, 1, 1) & " ft"
+End Sub
