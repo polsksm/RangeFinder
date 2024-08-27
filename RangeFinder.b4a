@@ -37,30 +37,48 @@ Sub Process_Globals
 	Private xui As XUI
 	Private phoneSensors As PhoneSensors
 	Private frontCamera As Boolean = False
-	Private startPreviewTimer As Timer
+	
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	Dim m_angle As Float
+	Dim set_angle As Float
 	Private Label2 As Label
 	Private Label4 As Label
 	Private m_ctlDistance As EditText
-	Private m_ctlKUp As EditText
-	Private m_ctlKDown As EditText
 	Private cam As Camera
 	Private Panel1 As Panel ' Use Panel instead of SurfaceView
 	Private camEx As CameraExClass
+	Private dot As Label    ' Label to represent the dot
+	Private dotCenterX As Int ' Center X coordinate of the dot
+	Private dotCenterY As Int ' Center Y coordinate of the dot
+	Private tapThreshold As Int = 30dip ' Threshold distance in pixels
+	Private Seekbar1 As SeekBar
+	Private Seekbar2 As SeekBar
+	Private Label5 As Label
+	Private Label6 As Label
 End Sub
 
 Private Sub InitializeCamera
+	Log("Initialize Camera")
 	Starter.rp.CheckAndRequest(Starter.rp.PERMISSION_CAMERA)
 	Wait For Activity_PermissionResult (Permission As String, Result As Boolean)
 	If Result Then
+		Log("Permission granted, initializing camera...")
+		Sleep(100) ' Delay to ensure SurfaceView is ready
 		camEx.Initialize(Panel1, frontCamera, Me, "Camera1")
+		If camEx.IsInitialized Then
+			Log("Camera initialized successfully.")
+			camEx.StartPreview
+			Log("Camera preview started.")
+		Else
+			Log("Camera initialization failed.")
+		End If
 		frontCamera = camEx.Front
 	Else
 		ToastMessageShow("No permission!!!", True)
+		Log("Camera permission denied.")
 	End If
 End Sub
 
@@ -79,8 +97,32 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout") ' Load the layout that includes the Panel
 	phoneSensors.Initialize(phoneSensors.TYPE_ACCELEROMETER)
-	m_ctlKUp.Text = 2.5
-	m_ctlKDown.Text = 0.5
+	' Initialize the dot as a Label
+	dot.Initialize("")
+	dot.Color = Colors.Transparent
+	'dot.Color = Colors.Red ' Set the dot color
+	dot.TextColor = Colors.White
+	dot.Text = "●" ' Set the dot character (Unicode for a dot)
+	dot.TextSize = 30 ' Set the dot size
+	dot.Gravity = Gravity.CENTER ' Center the text in the label
+	' Add the dot to the Activity
+	Activity.AddView(dot, 0, 0, 30dip, 30dip) ' 30dip by 30dip dot size
+	CenterDotOnPanel
+	'Seekbar1.Value = 25
+	'Seekbar2.Value = 1
+	Label5.Text = "K_UP " & NumberFormat(Seekbar1.Value/10,1,1)
+	Label6.Text = "K_DOWN " & NumberFormat(Seekbar2.Value/10,1,1)
+	
+End Sub
+
+Sub CenterDotOnPanel
+	' Calculate the center position of the Panel
+	dotCenterX = Panel1.Left + (Panel1.Width / 2)
+	dotCenterY = Panel1.Top + (Panel1.Height / 2)
+
+	' Position the dot in the center of the Panel
+	dot.Left = dotCenterX - (dot.Width / 2)
+	dot.Top = dotCenterY - (dot.Height / 2)
 End Sub
 
 Sub Activity_Resume
@@ -109,13 +151,28 @@ Sub phoneSensors_SensorChanged (Values() As Float)
 	Dim z As Float = Values(2)
 
 	' Calculate the tilt angle
-	m_angle = ATan2(y, Sqrt(x * x + z * z)) * (180 / cPI)
-	Log("Tilt Angle: " & m_angle & " degrees")
+	m_angle = 90.0 - ATan2(y, Sqrt(x * x + z * z)) * (180 / cPI)
+	If z > 1.0 Then
+		m_angle = m_angle * -1
+	End If
+	'Log("Tilt Angle: " & m_angle & " degrees")
+	'Log("X: " & x & ", Y: " & y & ", Z: " & z)
+	'Log(m_angle)
 End Sub
 
 Sub Panel1_Touch (Action As Int, X As Float, Y As Float)
-	Label4.Text = "Angle: " & m_angle
-	displayEffectiveDistance
+	' Calculate the distance between the tap and the dot center
+	Dim distance As Double
+	distance = Sqrt(Power(X - dotCenterX, 2) + Power(Y - dotCenterY, 2))
+	If distance <= tapThreshold Then
+		' Only set the angle if within 30 pixels of the dot
+		Log("Tap within threshold, setting angle.")
+		Label4.Text = "Angle: " & m_angle
+		set_angle = m_angle
+		displayEffectiveDistance
+	Else
+		Log("Tap outside threshold, ignoring.")
+	End If
 End Sub
 
 Sub displayEffectiveDistance()
@@ -123,7 +180,7 @@ Sub displayEffectiveDistance()
 	Dim k_down As Float
 	Dim eff_distance As Float
 	Dim distance As Float
-	Dim angle_rad As Float = m_angle * (cPI / 180.0)
+	Dim angle_rad As Float = set_angle * (cPI / 180.0)
 
 	If (m_ctlDistance.Text.Length < 1) Then Return
 	distance = m_ctlDistance.Text
@@ -138,14 +195,31 @@ Sub displayEffectiveDistance()
 		Return ' Exit the sub if the distance is not a valid number
 	End If
 
-	k_up = m_ctlKUp.Text
-	k_down = m_ctlKDown.Text
+	k_up = NumberFormat(Seekbar1.Value/10,1,1)
+	k_down = NumberFormat(Seekbar2.Value/10,1,1)
 
-	If (m_angle >= 0.0) Then
+	If (set_angle >= 0.0) Then
 		eff_distance = distance * (Cos(angle_rad) + k_up * Sin(angle_rad))
 	Else
 		eff_distance = distance * (Cos(angle_rad) + k_down * Sin(angle_rad))
 	End If
 
+	Log("m_angle: " & m_angle)
 	Label2.Text = "Effective Distance: " & NumberFormat(eff_distance, 1, 1) & " ft"
+End Sub
+
+Private Sub SeekBar1_ValueChanged (Value As Int, UserChanged As Boolean)
+	Label5.Text = "K_UP " & NumberFormat(Value/10,1,1)
+	displayEffectiveDistance
+End Sub
+
+Private Sub SeekBar2_ValueChanged (Value As Int, UserChanged As Boolean)
+	Label6.Text = "K_DOWN " & NumberFormat(Value/10,1,1)
+	displayEffectiveDistance
+End Sub
+
+
+Private Sub m_ctlDistance_TextChanged (Old As String, New As String)
+	Log("distance changed")
+	displayEffectiveDistance
 End Sub

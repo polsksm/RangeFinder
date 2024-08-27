@@ -37,31 +37,73 @@ Public Sub Initialize (Panel1 As Panel, FrontCamera As Boolean, TargetModule As 
 	End If
 	cam.Initialize2(Panel1, "camera", id)
 End Sub
+'
+'Private Sub FindCamera (frontCamera As Boolean) As CameraInfoAndId
+'	Dim ci As CameraInfoAndId
+'	Dim cameraInfo As Object
+'	Dim cameraValue As Int
+'	Log("findCamera")
+'	If frontCamera Then cameraValue = 1 Else cameraValue = 0
+'	cameraInfo = r.CreateObject("android.hardware.Camera$CameraInfo")
+'	Dim numberOfCameras As Int = r.RunStaticMethod("android.hardware.Camera", "getNumberOfCameras", Null, Null)
+'	Log(r.target)
+'	Log(numberOfCameras)
+'	For i = 0 To numberOfCameras - 1
+'		r.RunStaticMethod("android.hardware.Camera", "getCameraInfo", Array As Object(i, cameraInfo), _
+'			Array As String("java.lang.int", "android.hardware.Camera$CameraInfo"))
+'		r.target = cameraInfo
+'		Log("facing: " & r.GetField("facing") & ", " & cameraValue)
+'		If r.GetField("facing") = cameraValue Then 
+'			ci.cameraInfo = r.target
+'			ci.Id = i
+'			Return ci
+'		End If
+'	Next
+'	ci.id = -1
+'	Return ci
+'End Sub
 
-Private Sub FindCamera (frontCamera As Boolean) As CameraInfoAndId
+Private Sub FindCamera(frontCamera As Boolean) As CameraInfoAndId
 	Dim ci As CameraInfoAndId
+	Dim r As Reflector
 	Dim cameraInfo As Object
 	Dim cameraValue As Int
 	Log("findCamera")
-	If frontCamera Then cameraValue = 1 Else cameraValue = 0
+
+	If frontCamera Then
+		cameraValue = 1
+	Else
+		cameraValue = 0
+	End If
+
 	cameraInfo = r.CreateObject("android.hardware.Camera$CameraInfo")
 	Dim numberOfCameras As Int = r.RunStaticMethod("android.hardware.Camera", "getNumberOfCameras", Null, Null)
-	Log(r.target)
-	Log(numberOfCameras)
+    
+	Log("Number of Cameras: " & numberOfCameras)
+
 	For i = 0 To numberOfCameras - 1
 		r.RunStaticMethod("android.hardware.Camera", "getCameraInfo", Array As Object(i, cameraInfo), _
-			Array As String("java.lang.int", "android.hardware.Camera$CameraInfo"))
+            Array As String("java.lang.int", "android.hardware.Camera$CameraInfo"))
+        
 		r.target = cameraInfo
-		Log("facing: " & r.GetField("facing") & ", " & cameraValue)
-		If r.GetField("facing") = cameraValue Then 
-			ci.cameraInfo = r.target
-			ci.Id = i
-			Return ci
+		Log("r.target: " & r.target)
+        
+		If r.target <> Null Then
+			Log("facing: " & r.GetField("facing") & " , cameraValue: " & cameraValue)
+			If r.GetField("facing") = cameraValue Then
+				ci.cameraInfo = r.target
+				ci.id = i
+				Return ci
+			End If
+		Else
+			Log("cameraInfo is null")
 		End If
 	Next
+
 	ci.id = -1
 	Return ci
 End Sub
+
 
 Private Sub SetDisplayOrientation
 	r.target = r.GetActivity

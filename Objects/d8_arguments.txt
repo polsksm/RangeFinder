@@ -1,0 +1,93 @@
+--release
+--output
+G:\My Drive\B4AProjects\RangeFinder\Objects
+--lib
+D:\Android\platforms\android-33\android.jar
+D:\Android\tools\..\extras\b4a_local\unpacked-b4ashared-63837495756000\dex_v1\b4ashared.zip
+d:\android\tools\..\extras\b4a_remote\androidx\core\core\1.9.0\unpacked-core-1.9.0\jars\classes.zip
+d:\android\tools\..\extras\b4a_remote\androidx\core\core-ktx\1.9.0\unpacked-core-ktx-1.9.0\jars\classes.zip
+d:\android\tools\..\extras\b4a_remote\androidx\annotation\annotation-experimental\1.3.0\unpacked-annotation-experimental-1.3.0\jars\classes.zip
+d:\android\tools\..\extras\b4a_remote\androidx\lifecycle\lifecycle-runtime\2.5.1\unpacked-lifecycle-runtime-2.5.1\jars\classes.zip
+d:\android\tools\..\extras\b4a_remote\androidx\versionedparcelable\versionedparcelable\1.1.1\unpacked-versionedparcelable-1.1.1\jars\classes.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-camera-63837495758000\dex_v1\camera.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-core-63837495758000\dex_v1\core.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-javaobject-63837495758000\dex_v1\javaobject.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-phone-63837495758000\dex_v1\phone.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-runtimepermissions.androidx-63837495758000\dex_v1\runtimepermissions.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-xui-63837495758000\dex_v1\xui.zip
+D:\Android\tools\..\extras\b4a_local\unpacked-reflection-63837495758000\dex_v1\reflection.zip
+d:\android\tools\..\extras\b4a_remote\androidx\annotation\annotation\1.5.0\annotation-1.5.0.zip
+d:\android\tools\..\extras\b4a_remote\androidx\arch\core\core-common\2.1.0\core-common-2.1.0.zip
+d:\android\tools\..\extras\b4a_remote\androidx\lifecycle\lifecycle-common\2.5.1\lifecycle-common-2.5.1.zip
+d:\android\tools\..\extras\b4a_remote\androidx\lifecycle\lifecycle-common-java8\2.5.1\lifecycle-common-java8-2.5.1.zip
+d:\android\tools\..\extras\b4a_remote\androidx\collection\collection\1.2.0\collection-1.2.0.zip
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$attr.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$string.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$drawable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$id.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$dimen.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$integer.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$layout.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$style.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$color.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\R$styleable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$attr.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$style.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$layout.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$dimen.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$styleable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$integer.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$drawable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$id.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$color.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R$string.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\core\ktx\R.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$drawable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$dimen.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$color.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$style.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$layout.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$integer.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$attr.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$id.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$styleable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\annotation\experimental\R$string.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$integer.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$color.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$id.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$drawable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$attr.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$layout.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$style.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$styleable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$string.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\androidx\lifecycle\runtime\R$dimen.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main$WaitForLayout.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main$ResumeMessage.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main$HandleKeyDelayed.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\cameraexclass$_camerainfoandid.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\starter$2.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\starter$starter_BR.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$string.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$drawable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$integer.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main$ResumableSub_InitializeCamera.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\cameraexclass.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\cameraexclass$_camerasize.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$style.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main$B4AMenuItemsClickListener.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$styleable.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$attr.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\starter.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$layout.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\starter$1.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\main$1.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$dimen.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$color.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\R$id.dex
+G:\My Drive\B4AProjects\RangeFinder\Objects\dexed\b4a\DiscGolfRangeFinder\designerscripts\LS_layout.dex
